@@ -25,3 +25,24 @@ test("glass hero provides ambient layers and semantic heading structure", async 
   assert.match(css, /\.bearing-ambient\s*\{[^}]*position:\s*fixed/s);
   assert.match(css, /font-family:[^;]*-apple-system/);
 });
+
+test("glass surfaces provide refraction, interaction, and accessibility fallbacks", async () => {
+  const { jsx, css } = await readDashboardTheme();
+
+  assert.match(css, /backdrop-filter:\s*blur\(/);
+  assert.match(css, /-webkit-backdrop-filter:\s*blur\(/);
+  assert.match(css, /box-shadow:[^;]*inset[^;]*,/s);
+  assert.match(css, /:focus-visible/);
+  assert.match(css, /:hover/);
+  assert.match(css, /:active/);
+  assert.match(css, /@supports not \(\(backdrop-filter:\s*blur\(1px\)\) or \(-webkit-backdrop-filter:\s*blur\(1px\)\)\)/);
+  assert.match(css, /@media \(prefers-reduced-motion:\s*reduce\)/);
+  assert.match(css, /--bearing-risk-amber:/);
+  assert.match(css, /background:\s*rgb\(255 255 255 \/ 94%\)/);
+
+  assert.match(jsx, /var\(--bearing-blue\)/);
+  assert.match(jsx, /var\(--bearing-teal\)/);
+  assert.match(jsx, /var\(--bearing-slate\)/);
+  assert.match(jsx, /var\(--bearing-muted\)/);
+  assert.doesNotMatch(jsx, /var\(--bearing-orange\)/);
+});

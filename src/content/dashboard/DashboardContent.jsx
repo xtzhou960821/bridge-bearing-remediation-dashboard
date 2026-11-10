@@ -39,7 +39,7 @@ const prioritySpec = {
   type: "bar", x: "priority", y: "reportedCount",
   showValues: true, showLegend: false, showYAxisLabel: true,
   yLabel: "报告统计次数",
-  colors: { reportedCount: "var(--bearing-orange)" },
+  colors: { reportedCount: "var(--bearing-slate)" },
 };
 
 const comparisonSpec = {
