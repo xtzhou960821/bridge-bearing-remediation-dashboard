@@ -245,8 +245,14 @@ export function DashboardContent() {
   const reports = reviewedRows("reports", ["year", "bridgeGroup"]);
 
   return <article className="bearing-page">
-    <SectionHeader id="bearing-dashboard-title" as="h1" title="桥梁支座病害与整治分析" />
-    <p className="bearing-deck">基于 2021—2024 年检测报告的人工复核汇总，串联病害分布、前期整治排程和跨年度变化。</p>
+    <div className="bearing-ambient" aria-hidden="true">
+      <span className="bearing-orb bearing-orb--one" />
+      <span className="bearing-orb bearing-orb--two" />
+    </div>
+    <header className="bearing-hero">
+      <SectionHeader id="bearing-dashboard-title" as="h1" title="桥梁支座病害与整治分析" />
+      <p className="bearing-deck">基于 2021—2024 年检测报告的人工复核汇总，串联病害分布、前期整治排程和跨年度变化。</p>
+    </header>
     <Filters sticky filters={snapshot.filters ?? []} queries={queries} values={filters} onChange={setFilter} />
     {tab === "overview" && <Overview defects={defects} />}
     {tab === "treatment" && <Treatment rows={treatments} />}

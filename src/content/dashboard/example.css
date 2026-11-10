@@ -4,11 +4,33 @@
   --bearing-teal: var(--chart-3);
   --bearing-orange: var(--chart-5);
   --bearing-muted: var(--chart-8);
+  position: relative;
+  isolation: isolate;
   padding-top: 18px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
 }
 
-.bearing-page > .data-section-header { padding: 6px 0 3px; }
-.bearing-page > .data-section-header .data-section-title { max-width: 880px; letter-spacing: -.04em; }
+.bearing-page > :not(.bearing-ambient) { position: relative; z-index: 1; }
+
+.bearing-ambient {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 14% 8%, rgb(180 220 255 / 52%), transparent 36%),
+    radial-gradient(ellipse at 88% 12%, rgb(180 245 244 / 36%), transparent 34%),
+    radial-gradient(ellipse at 50% 100%, rgb(204 218 242 / 44%), transparent 48%);
+}
+
+.bearing-orb { position: absolute; display: block; border-radius: 50%; filter: blur(10px); opacity: .62; }
+.bearing-orb--one { width: 28rem; height: 28rem; top: 8rem; left: -13rem; background: rgb(139 205 255 / 32%); }
+.bearing-orb--two { width: 24rem; height: 24rem; top: 30rem; right: -10rem; background: rgb(147 235 230 / 26%); }
+
+.bearing-hero { padding: 8px 0 4px; }
+.bearing-hero > .data-section-header { padding: 0 0 4px; }
+.bearing-hero .data-section-title { max-width: 880px; letter-spacing: -.045em; text-wrap: balance; }
 .bearing-deck { max-width: 850px; margin: 0 0 18px; color: var(--secondary); font-size: 15px; line-height: 1.7; }
 .bearing-page > .filters { margin-bottom: 14px; }
 .bearing-page .dashboard-component[data-component-variant="card"] {
