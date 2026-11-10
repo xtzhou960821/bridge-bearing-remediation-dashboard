@@ -39,7 +39,7 @@ test("glass surfaces provide refraction, interaction, and accessibility fallback
   assert.doesNotMatch(css, /@supports not \(\(backdrop-filter:/);
   assert.match(css, /@media \(prefers-reduced-motion:\s*reduce\)/);
   assert.match(css, /--bearing-risk-amber:/);
-  assert.match(css, /background:\s*rgb\(255 255 255 \/ 94%\)/);
+  assert.match(css, /background:\s*light-dark\(rgb\(255 255 255 \/ 94%\),/);
 
   assert.match(jsx, /var\(--bearing-blue\)/);
   assert.match(jsx, /var\(--bearing-teal\)/);
@@ -51,8 +51,21 @@ test("glass surfaces provide refraction, interaction, and accessibility fallback
 test("compact layout keeps the horizontally scrollable filter bar in document flow", async () => {
   const { css } = await readDashboardTheme();
 
+  assert.match(css, /\.bearing-page > :not\(\.bearing-ambient, \.filters\)/);
+  assert.doesNotMatch(css, /\.bearing-page > :not\(\.bearing-ambient\)\s*\{/);
+  assert.doesNotMatch(css, /\.bearing-page > \.filters\s*\{[^}]*top:\s*auto/);
+});
+
+test("fallback and motion rules stay readable without crossing protected chrome", async () => {
+  const { css } = await readDashboardTheme();
+
   assert.match(
     css,
-    /@container bearing-dashboard \(max-width:\s*640px\)[\s\S]*?\.bearing-page > \.filters\s*\{[^}]*top:\s*auto[^}]*\}/,
+    /background:\s*light-dark\(rgb\(255 255 255 \/ 94%\),\s*rgb\(17 31 46 \/ 96%\)\)/,
+  );
+  assert.doesNotMatch(css, /\.dashboard-tabs-(?:row|inner)|\.dashboard-tab/);
+  assert.match(
+    css,
+    /@media \(prefers-reduced-motion:\s*reduce\)[\s\S]*?transform:\s*none\s*!important/,
   );
 });
