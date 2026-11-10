@@ -255,7 +255,7 @@
 .bearing-page > .dashboard-component + .bearing-score-strip,
 .bearing-page > .bearing-score-strip + .dashboard-component { margin-top: 14px; }
 
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+@supports not (backdrop-filter: blur(1px)) {
   .bearing-page .dashboard-component[data-component-variant="card"],
   .bearing-page .data-executive-summary,
   .bearing-page > .filters,
@@ -294,5 +294,5 @@
   .bearing-metric-grid, .bearing-metric-grid--three, .bearing-evidence-intro, .bearing-score-strip { grid-template-columns: 1fr; }
   .bearing-callout { grid-template-columns: 1fr; }
   .bearing-callout-kicker { grid-row: auto; width: fit-content; }
-  .bearing-page > .filters { padding-inline: 8px; }
+  .bearing-page > .filters { top: auto; padding-inline: 8px; }
 }

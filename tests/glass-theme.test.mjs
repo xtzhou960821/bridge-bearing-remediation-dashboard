@@ -35,7 +35,8 @@ test("glass surfaces provide refraction, interaction, and accessibility fallback
   assert.match(css, /:focus-visible/);
   assert.match(css, /:hover/);
   assert.match(css, /:active/);
-  assert.match(css, /@supports not \(\(backdrop-filter:\s*blur\(1px\)\) or \(-webkit-backdrop-filter:\s*blur\(1px\)\)\)/);
+  assert.match(css, /@supports not \(backdrop-filter:\s*blur\(1px\)\)/);
+  assert.doesNotMatch(css, /@supports not \(\(backdrop-filter:/);
   assert.match(css, /@media \(prefers-reduced-motion:\s*reduce\)/);
   assert.match(css, /--bearing-risk-amber:/);
   assert.match(css, /background:\s*rgb\(255 255 255 \/ 94%\)/);
@@ -45,4 +46,13 @@ test("glass surfaces provide refraction, interaction, and accessibility fallback
   assert.match(jsx, /var\(--bearing-slate\)/);
   assert.match(jsx, /var\(--bearing-muted\)/);
   assert.doesNotMatch(jsx, /var\(--bearing-orange\)/);
+});
+
+test("compact layout keeps the horizontally scrollable filter bar in document flow", async () => {
+  const { css } = await readDashboardTheme();
+
+  assert.match(
+    css,
+    /@container bearing-dashboard \(max-width:\s*640px\)[\s\S]*?\.bearing-page > \.filters\s*\{[^}]*top:\s*auto[^}]*\}/,
+  );
 });
